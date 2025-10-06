@@ -1,0 +1,167 @@
+html { box-sizing: border-box; }
+        *, *:before, *:after { box-sizing: inherit; }
+
+        body {
+            font-family: 'Roboto', Arial, Helvetica, sans-serif;
+            background-color: #101522;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            min-width: 320px;
+        }
+        header {
+            background: #0B3D91;
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid #FC3D21;
+        }
+        h1 {
+            color: #fcce02;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        header p {
+            color: #eee;
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+        #main-layout {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 2rem;
+            margin: 2rem auto;
+            max-width: 1300px;
+            min-height: 70vh;
+            align-items: flex-start;
+        }
+        .data-sources {
+            background: #181C26;
+            border-radius: 7px;
+            padding: 1.2rem;
+            color: #eee;
+            min-width: 280px;
+            max-width: 340px;
+            flex: 0 0 340px;
+        }
+        .data-sources h3 {
+            color: #FC3D21;
+            margin-top: 0;
+        }
+        .data-sources ul {
+            padding-left: 1rem;
+            margin-bottom: 0;
+        }
+        .data-sources p {
+            font-size: 1rem;
+            color: #bbb;
+        }
+        section#map-section {
+            flex: 2 2 480px;
+            min-width: 340px;
+            max-width: 700px;
+            background: #181C26;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        #date-input-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 1rem;
+        }
+        #date-input-bar label {
+            color: #0B3D91;
+            font-weight: bold;
+        }
+        #date-input-bar input {
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: 1px solid #23294A;
+            min-width: 180px;
+        }
+        #get-weather-btn {
+            background-color: #FC3D21;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.8rem 1.2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        #get-weather-btn:hover { background: #AF251A; }
+        #map-container {
+            width: 100%;
+            height: 400px;
+            background: #eee;
+            border-radius: 8px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+        aside#weather-panel {
+            flex: 1 1 300px;
+            min-width: 220px;
+            max-width: 340px;
+            background: #23294A;
+            border-radius: 12px;
+            padding: 1.5rem 1rem 1rem 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            margin-bottom: 2rem;
+        }
+        aside#weather-panel h2 {
+            margin-top: 0;
+            color: #FC3D21;
+        }
+        .weather-item {
+            background: #181C26;
+            border-radius: 7px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            word-break: break-word;
+        }
+        .weather-item strong {
+            min-width: 120px;
+            color: #FC3D21;
+        }
+        .img {
+            max-width: 120px;
+            display: block;
+            margin: 1rem auto;
+        }
+        button[style], #weather-panel button {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        footer {
+            background: #0B3D91;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 32px;
+            border-top: 2px solid #FC3D21;
+        }
+        /* Responsive stacking fix */
+        @media (max-width: 1200px) {
+            #main-layout { max-width: 97vw;}
+        }
+        @media (max-width: 900px) {
+            #main-layout {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                margin: 1rem;
+                max-width: 98vw;
+            }
+            section#map-section, aside#weather-panel, .data-sources {
+                margin-right: 0 !important;
+                margin-bottom: 2rem !important;
+                min-width: 0 !important;
+                max-width: 100vw;
+            }
+            #map-container { height: 260px; }
+        }

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title align="center">Solaris – NASA Space Apps Challenge</title>
+    <!-- Link to Sparsh’s CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- NASA Accent (for quick overrides) -->
+    <style>
+        /* Layout Fixes + Branding */
+        html { box-sizing: border-box; }
+        *, *:before, *:after { box-sizing: inherit; }
+
+        body {
+            font-family: 'Roboto', Helvetica, sans-serif;
+            background-color: #101522;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            min-width: 320px;
+        }
+        header {
+    background: #0B3D91;
+    padding: 1.5rem 2rem;
+    border-bottom: 2px solid #FC3D21;
+    text-align: center; /* centers the Solaris title and tagline */
+}
+        h1 {
+            color: #fcce02;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        header p {
+            color: #eee;
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+        #main-layout {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 2rem;
+            margin: 2rem auto;
+            max-width: 1300px;
+            min-height: 70vh;
+            align-items: flex-start;
+        }
+       .data-sources, section#map-section, aside#weather-panel {
+    background: #23294A;  /* all panels same color */
+    border-radius: 16px;              /* smooth corners */
+    padding: 1.5rem;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3); /* soft glow */
+    transition: transform 0.25s ease, box-shadow 0.3s ease;
+}
+
+.data-sources:hover,
+section#map-section:hover,
+aside#weather-panel:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+}
+     #date-input-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+}
+#date-input-bar input:focus {
+    border-color: #FC3D21;
+    box-shadow: 0 0 8px #FC3D21;
+    outline: none;
+}
+
+#date-input-bar button {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    border-radius: 10px;
+    background-color: #FC3D21;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s all ease;
+}
+
+#date-input-bar button:hover {
+    background-color: #AF251A;
+    transform: scale(1.03);
+}
+
+
+        #get-weather-btn {
+            background-color: #FC3D21;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.8rem 1.2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        #get-weather-btn:hover { background: #AF251A; }
+        #map-container {
+            width: 100%;
+            height: 400px;
+            background: #eee;
+            border-radius: 8px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+        aside#weather-panel {
+            flex: 1 1 300px;
+            min-width: 220px;
+            max-width: 340px;
+            background: #23294A;
+            border-radius: 12px;
+            padding: 1.5rem 1rem 1rem 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            margin-bottom: 2rem;
+        }
+        aside#weather-panel h2 {
+            margin-top: 0;
+            color: #FC3D21;
+        }
+        .weather-item {
+            background: #181C26;
+            border-radius: 7px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            word-break: break-word;
+        }
+        .weather-item strong {
+            min-width: 120px;
+            color: #FC3D21;
+        }
+        .img {
+            max-width: 120px;
+            display: block;
+            margin: 1rem auto;
+        }
+        button[style], #weather-panel button {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        footer {
+            background: #0B3D91;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 32px;
+            border-top: 2px solid #FC3D21;
+        }
+        /* Responsive stacking fix */
+        @media (max-width: 1200px) {
+            #main-layout { max-width: 97vw;}
+        }
+        @media (max-width: 900px) {
+            #main-layout {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                margin: 1rem;
+                max-width: 98vw;
+            }
+            
+            section#map-section, aside#weather-panel, .data-sources {
+                margin-right: 0 !important;
+                margin-bottom: 2rem !important;
+                min-width: 0 !important;
+                max-width: 100vw;
+            }
+            #map-container { height: 260px; }
+        }
+    </style>
+    <!-- Link to Paul’s JavaScript -->
+    <script src="UserInput.js"></script>
+    <!-- Link to Python stuff via PyScript -->
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+<body>
+    <!-- Python: APIs, data logic -->
+    <!-- Header -->
+    <header>
+        <h1>Solaris</h1>
+        <p>
+            Predicting weather odds decades ahead<br>
+            <em>NASA Earth data for smarter event planning, outdoor adventure, and research.<br>
+            Space Apps Challenge 2025 – Coding, Data Analysis, Visualization, Forecasting, Web Dev</em>
+        </p>
+    </header>
+    <!-- Main Layout -->
+    <main id="main-layout">
+        <!-- NASA Data Sources & Info Panel -->
+        <section class="data-sources" aria-label="NASA Data Sources">
+            <h3>Powered by NASA Earth Observation Data</h3>
+            <ul>
+                <li>Temperature (AIRS)</li>
+                <li>Average Precipitation & Snow Likelihood (GPM)</li>
+                <li>Cloud Coverage</li>
+                <li>Wind Speed <em>(coming soon)</em></li>
+                <li>Air Quality <em>(coming soon)</em></li>
+            </ul>
+            <p>
+                Quickly check odds of "very hot," "very cold," "very windy," "very wet," or "very uncomfortable" conditions for any location and date—months or years in advance.<br>
+                Results are statistical, not forecasts—enabling smarter planning for outdoor activities and research.
+            </p>
+            <p>
+                <strong>Stack:</strong> Google Maps API · Python + Flask · AWS/XAMPP · earthaccess for NASA data · Download CSV/JSON output
+            </p>
+        </section>
+        <!-- Map Section -->
+        <section id="map-section">
+            <!-- Date & Location Input -->
+            <form name="getWeather" method="post" aria-label="Weather query form" id="form">
+                <div id="date-input-bar">
+                    <label for="zip-input">Location</label>
+                    <input type="text" id="zip-input" name="zip-input" placeholder="1234 Flower Lane, City, State" aria-label="Location input" required>
+                    <label for="date-input">Date</label>
+                    <input type="date" id="date-input" name="date-input" aria-label="Date input" required>
+
+                    <button id="get-weather-btn" type="submit">
+                        Get Weather Odds
+                    </button>
+                </div>
+            </form>
+            <p>
+                <em>
+                    Enter an address, drop a pin, or select any date to see the odds of weather events for your location.<br>
+                    Data is sourced directly from NASA satellites/models.
+                </em>
+            </p>
+            <!-- Maps section (API output) -->
+            <div id="map-container">
+                <!-- Paul puts Map API here -->
+            </div>
+        </section>
+        <!-- Weather Data Panel -->
+        <aside id="weather-panel">
+            <h2>Weather Data</h2>
+            <div class="weather-item"><strong>Temperature:</strong> <span id="temp">--</span></div>
+            <div class="weather-item"><strong>Humidity:</strong> <span id="dew">--</span></div>
+            <div class="weather-item"><strong>Rain:</strong> <span id="rain">--</span></div>
+            <div class="weather-item"><strong>Snow Chance:</strong> <span id="snow">--</span></div>
+            <div class="weather-item"><strong>Wind Speed:</strong> <span id="wind">--</span></div>
+            <div class="weather-item"><strong>Air Quality:</strong> <span id="air">--</span></div>
+            <button style="width:100%;">Download Data (CSV / JSON)</button>
+            <div><img src="SpaceAppslogo.png" class="img" alt="NASA Space Apps Challenge Logo"></div>
+        </aside>
+    </main>
+    <!-- Footer -->
+    <footer>
+        <p>
+            Solaris &mdash; NASA Space Apps Challenge 2025<br>
+            Powered by NASA data | Coding · Data Analysis · Visualization · Forecasting · Web Development
+        </p>
+    </footer>
+    <py-script src="./GoogleMapsAPI/APIs.py"></py-script>
+</body>
+</html>
